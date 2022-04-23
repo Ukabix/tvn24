@@ -1,0 +1,7 @@
+/node_modules
+npm-debug.log
+.DS_Store
+secret.js
+/*.env
+/allure-results
+/allure-report
