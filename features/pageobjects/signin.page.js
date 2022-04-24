@@ -1,5 +1,6 @@
 class SignInPage {
   // locators
+  // state 1
   get btnSigninEmail() {
     return $('#login_by_email');
   }
@@ -17,15 +18,6 @@ class SignInPage {
   }
   get anchorSignup() {
     return $('#register');
-  }
-  get formUsername() {
-    return $("input[name='login']");
-  }
-  get formPasword() {
-    return $("input[name='password']");
-  }
-  get btnSubmitSignin() {
-    return $('#sign_in');
   }
   // methods
   async navigateSigninEmail() {
@@ -46,6 +38,19 @@ class SignInPage {
   async navigateSignup() {
     (await this.anchorSignup).click();
   }
+
+  // state 2
+  // locators
+  get formInputUsername() {
+    return $("input[name='login']");
+  }
+  get formInputPassword() {
+    return $("input[name='password']");
+  }
+  get btnSubmitSignin() {
+    return $('#sign_in');
+  }
+  // methods
   async submitSignin() {
     (await this.btnSubmitSignin).click();
   }
