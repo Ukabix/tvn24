@@ -3,14 +3,14 @@ Feature: Site sign up functionality
   Scenario: TC-001 Sign in with valid credentials | incogito
     Given User is not recognized with a cookie
     And User is on the main page
-    And User has an email
-    When User navigates to the sign up page
-    And User registers with his email
-    # And User navigates to the sign in page
-    # And User gives valid credentials
-    # Then User should sign in
-    Then User should be able to view secure page and edit his profile
-    And User should be able to finish registration
+    # And User has an email
+    # When User navigates to the sign up page
+    # And User registers with his email
+    # # And User navigates to the sign in page
+    # # And User gives valid credentials
+    # # Then User should sign in
+    # Then User should be able to view secure page and edit his profile
+    # And User should be able to finish registration
 
   ### validate for wrong username, pass and checkbox in next tcs
   # Scenario: TC-002 Sign in with invalid credentials - username | incognito

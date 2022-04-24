@@ -1,12 +1,18 @@
 // cucumber imports
-const {
-  Given,
-  When,
-  Then,
-} = require('@wdio/cucumber-framework');
-const helpers = require('../helpers/helpers');
+import {
+  Given, When, Then
+} from '@wdio/cucumber-framework';
+// helpers
+import helpers from '../helpers/helpers';
+// POM imports
+import commonPage from '../pageobjects/common.page';
+import homePage from '../pageobjects/home.page';
+import signInPage from '../pageobjects/signin.page';
+import signUpPage from '../pageobjects/signup.page';
+import emailServicePage from '../pageobjects/emailService.page';
+
 // test data import
-const fs = require('fs');
+import fs from 'fs';
 // parse string
 let credentials = JSON.parse(
   fs.readFileSync(
@@ -16,10 +22,10 @@ let credentials = JSON.parse(
 // POM imports
 // const commonPage = require('../pageobjects/common.page');
 // const homePage = require('../pageobjects/home.page');
-const signInPage = require('../pageobjects/signin.page');
-const homePage = require('../pageobjects/home.page');
-const emailServicePage = require('../pageobjects/emailService.page');
-const signupPage = require('../pageobjects/signup.page');
+// const signInPage = require('../pageobjects/signin.page').default;
+// const homePage = require('../pageobjects/home.page').default;
+// const emailServicePage = require('../pageobjects/emailService.page').default;
+// const signupPage = require('../pageobjects/signup.page').default;
 
 Given(/^User has an email/, async () => {
   // open email service
@@ -131,13 +137,15 @@ Then(
   /^User should be able to finish registration/,
   async () => {
     // change page and handle activation email
-    emailServicePage.changeWindowToEmailServicePage();
+    const handles =
+    await browser.getWindowHandles();
+    await browser.switchToWindow(handles[1]);
+    // emailServicePage.changeWindowToEmailServicePage();
     // click send code
 
     emailServicePage.useValidationEmail(); // takes loooong
 
-    const handles =
-      await browser.getWindowHandles();
+
     await browser.switchToWindow(handles[0]); // or 1?
     // await browser.closeWindow(handles[1]);
     // navigate back to main page

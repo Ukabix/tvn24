@@ -89,4 +89,4 @@ class SignUpPage {
   }
 }
 
-module.exports = new SignUpPage();
+export default new SignUpPage();

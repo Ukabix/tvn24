@@ -23,15 +23,47 @@ class EmailServicePage {
     return await (await this.formEmailAdress).getValue();
   }
   async changeWindowToEmailServicePage() {
-    await browser.switchWindow('https://10minutemail.net/');
+    await browser.switchWindow('https://10minutemail.net/'); // causing problems?
   }
   async useValidationEmail () {
-    await (await this.anchorSender).waitForExist({
-      timeout: 1200000,
-      reverse: false,
-      timeoutMsg: '',
-      interval: 10000,
-    }); // looong loading times);
+  //   const div = await browser.waitUntil(async () => {
+  //     const elems = await $$('div')
+  //     if (elems.length !== 2) {
+  //         return false
+  //     }
+  
+  //     return elems[2]
+  // }, {
+  //     timeoutMsg: 'Never found enough div elements'
+  // })
+  // await div.click()
+
+    await browser.waitUntil(async () => {
+      const elems = await $$('tr')
+      if (elems.length !== 6) {
+          return false
+      }},
+      {
+        timeout: 1200000,
+        reverse: false,
+        timeoutMsg: 'no emails, dammit',
+        interval: 10000,
+      });
+
+    // await (await this.anchorSender).waitUntil(async () => {
+    //   await (await this.anchorSender).isExisting()}, {
+    //       timeout: 1200000,
+    //       reverse: false,
+    //       timeoutMsg: '',
+    //       interval: 10000,
+    //     }
+    // ); // maybe loop ? WRONG!
+    // await (await this.anchorSender).waitForExist({
+    //   timeout: 1200000,
+    //   reverse: false,
+    //   timeoutMsg: '',
+    //   interval: 10000,
+    // }); // looong loading times);
     await (await this.anchorSender).click();
     // await ((await this.anchorSender).isExisting() ? (await this.anchorSender).click() : (await this.anchorRefresh).click()); // BAD!
     await (await this.anchorSumbitSignup).waitForExist(); // causing errors?
@@ -39,4 +71,4 @@ class EmailServicePage {
   }
 }
 
-module.exports = new EmailServicePage();
+export default new EmailServicePage();

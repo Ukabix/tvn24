@@ -12,3 +12,6 @@ use testing techniques to at least cover most test cases
 add screenshots on failed tests
 add selenium-standalone and multi-browser support? if time permits
 use more helpers? if time permits
+change commonJS into ES6...
+
+Oh God, so much to do...

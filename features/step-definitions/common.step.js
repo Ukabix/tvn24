@@ -1,11 +1,12 @@
 // cucumber imports
-const {
+import {
   Given, When, Then
-} = require ('@wdio/cucumber-framework');
-const helpers = require('../helpers/helpers');
+} from '@wdio/cucumber-framework';
+// helpers
+import helpers from '../helpers/helpers';
 // POM imports
-const commonPage = require('../pageobjects/common.page');
-const homePage = require('../pageobjects/home.page');
+import homePage from '../pageobjects/home.page';
+import commonPage from '../pageobjects/common.page';
 
 // Given(/^User is on the main page$/, async () => {
 //   commonPage.openHomePage();
@@ -19,26 +20,34 @@ const homePage = require('../pageobjects/home.page');
 
 //   homePage.navigateToSignIn();
 // });
-Given(/^User is on the main page/, async () => {
-  commonPage.openHomePage();
-  // assert home page is loaded
-  await helpers.assertTitleLiteral("Wiadomości z kraju i ze świata - najnowsze informacje w TVN24 - TVN24");
-  /// handle GDPR notice
-  await homePage.btnAcceptGDPR.waitForExist();
-  await homePage.acceptGDPR();
-  // handle notification frame
-  await homePage.frameNotifications.waitForExist();
-  homePage.closeFrameNotifications();
-  // assert user is not logged - check if sign in btn is present
-  await expect(homePage.btnSignIn).to.exist;
-  await expect(homePage.btnSignUp).to.exist;
-  // await browser.pause(3000);
-  //homePage.navigateToSignIn();
-});
 
 Given(/^User is not recognized with a cookie/, async () => {
   await browser.deleteCookies();
+});
+
+Given(/^User is on the main page/, async () => {
+  commonPage.openHomePage();
+  console.log('opened home page');
+  // assert home page is loaded
+  helpers.assertTitleLiteral("Wiadomości z kraju i ze świata - najnowsze informacje w TVN24 - TVN24");
+  console.log('asserted title literal');
+  /// handle GDPR notice
+  await homePage.btnAcceptGDPR.waitForExist();
+  console.log('waited for gdpr button');
+  homePage.acceptGDPR();
+  console.log('accepted gdpr');
+  // handle notification frame
+  await homePage.frameNotifications.waitForExist();
+  console.log('waited for frame notifications');
+  homePage.closeFrameNotifications();
+  console.log('closed frame notifications');
+  // assert user is not logged - check if sign in btn is present
+  await expect(homePage.btnSignIn).to.exist;
+  console.log('asserted btn sign in exists');
+  await expect(homePage.btnSignUp).to.exist;
+  console.log('asserted btn sign up exists');
   // await browser.pause(3000);
+  //homePage.navigateToSignIn();
 });
 
 Then(

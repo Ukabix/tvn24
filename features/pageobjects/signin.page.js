@@ -56,4 +56,4 @@ class SignInPage {
   }
 }
 
-module.exports = new SignInPage();
+export default new SignInPage();
