@@ -7,7 +7,7 @@ class CommonPage {
   async verifyPageTitle() {
     await browser.getTitle();
     // assert the page title as valid
-
+    
   }
 }
 

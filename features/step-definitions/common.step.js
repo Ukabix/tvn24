@@ -32,13 +32,13 @@ Given(/^User is on the main page/, async () => {
   // assert user is not logged - check if sign in btn is present
   await expect(homePage.btnSignIn).to.exist;
   await expect(homePage.btnSignUp).to.exist;
-  await browser.pause(3000);
+  // await browser.pause(3000);
   //homePage.navigateToSignIn();
 });
 
 Given(/^User is not recognized with a cookie/, async () => {
   await browser.deleteCookies();
-  await browser.pause(3000);
+  // await browser.pause(3000);
 });
 
 When(/^User navigates to the sign in page/, async () => {
@@ -46,5 +46,5 @@ When(/^User navigates to the sign in page/, async () => {
   homePage.navigateToSignIn();
   // assert sign in page is loaded
   await helpers.assertTitleLiteral("Konto TVN");
-  await browser.pause(3000);
+  // await browser.pause(3000);
 });

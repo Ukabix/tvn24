@@ -4,9 +4,10 @@ Feature: Site sign in functionality
     Given User is not recognized with a cookie
     And User is on the main page
     When User navigates to the sign in page
-    # And User gives valid credentials
-    # Then User should sign in
-    # And User should be able to view secure page to edit his profile
+    And User signs in via email
+    And User gives valid credentials
+    Then User should sign in
+    And User should be able to view secure page and edit his profile
 
   # Scenario: TC-002 Sign in with invalid credentials - username | incognito
   #   Given User is on the main page

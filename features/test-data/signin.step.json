@@ -1,0 +1,20 @@
+[
+  {
+    "username": "wbyjiifsmqxumbwcdk@nthrl.com",
+    "password": "Testowy12#",
+    "username-invalid": "wbyjiifsmqxumbwcdk@nthrl.com",
+    "password-invalid": "Testowy12"
+  },
+  {
+    "username": "wbyjiifsmqxumbwcdk@nthrl.com",
+    "password": "Testowy12#",
+    "username-invalid": "",
+    "password-invalid": "Testowy12"
+  },
+  {
+    "username": "wbyjiifsmqxumbwcdk@nthrl.com",
+    "password": "Testowy12#",
+    "username-invalid": "wbyjiifsmqxumbwcdk@nthrl.com",
+    "password-invalid": ""
+  }
+]

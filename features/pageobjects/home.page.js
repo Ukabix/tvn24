@@ -19,13 +19,16 @@ class HomePage {
   get btnTwitter() {
     return $$('.header-socials__button')[1];
   }
-  get btnAcceptGDPR(){
+  get btnAcceptGDPR() {
     return $('#onetrust-accept-btn-handler');
   }
-  get aHome() {
+  get anchorHome() {
     return $(
       "a[title='przejdź na stronę TVN24']"
     );
+  }
+  get anchorEditProfile() {
+    return $('a[href="https://panel.account.tvn.pl"]');
   }
   // frames
   get frameNotifications() {
@@ -42,7 +45,7 @@ class HomePage {
     await this.btnSignUp.click();
   }
   async navigateToHome() {
-    await this.aHome.click();
+    await this.anchorHome.click();
   }
   async navigateToTwitter() {
     await this.btnTwitter.click();
@@ -51,9 +54,14 @@ class HomePage {
     await this.btnFacebook.click();
   }
   async closeFrameNotifications() {
-    await browser.switchToFrame(await this.frameNotifications);
+    await browser.switchToFrame(
+      await this.frameNotifications
+    );
     await $('.no-box').click();
     await browser.switchToFrame(null);
+  }
+  async navigateToEditProfile() {
+    await this.anchorEditProfile.click();
   }
 }
 
