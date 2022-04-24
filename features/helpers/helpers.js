@@ -5,6 +5,10 @@ class Helpers {
       await browser.getTitle()
     ).to.be.eql(expectedTitle);
   }
+  randomTestName() {
+    const randint = Math.floor(Math.random() * 1000) + 1;
+    return (`dummyaccount${randint}`);
+  }
   // async switchToWindow(number) {
   //   const pageHandles = await browser.getWindowHandles();
   //   await browser.switchToWindow(pageHandles[number]);
