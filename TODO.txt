@@ -1,5 +1,5 @@
 feature1 - clean up browser.pause,implement more cases
-feature2 - goes pretty well, email verifcation, implement more cases, link with feature1 to validate account creation
+feature2 - goes pretty well, email verifcation, implement more cases, link with feature1 to validate account creation // SOME PROBLEMS - seems like useValidationEmail and changeWindowToEmailServicePage are causing them
 
 
 milestones:

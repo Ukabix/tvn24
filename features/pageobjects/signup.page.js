@@ -76,6 +76,17 @@ class SignUpPage {
   async submitBtnSubmitSignup () {
     await (await this.btnSubmitSignup).click();
   }
+
+
+  //state 3 - after signup
+  // locators
+  get btnAfterSignup () {
+    return $('#next-step');
+  }
+  // methods
+  async navigateToMainAfterSignup() {
+    await (await this.btnAfterSignup).click();
+  }
 }
 
 module.exports = new SignUpPage();

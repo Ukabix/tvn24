@@ -41,7 +41,35 @@ Given(/^User is not recognized with a cookie/, async () => {
   // await browser.pause(3000);
 });
 
-
+Then(
+  /^User should be able to view secure page and edit his profile/,
+  async () => {
+    await $(
+      '.account-standard__toggle-button'
+    ).waitForExist({
+      timeout: 200000,
+      reverse: false,
+      timeoutMsg: '',
+      interval: 5000,
+    }); // wonky loading times
+    await $(
+      '.account-standard__toggle-button'
+    ).moveTo();
+    await browser.pause(3000);
+    homePage.navigateToEditProfile();
+    // await browser.pause(10000);
+    // assert new tab has opened for profile edit
+    // helpers.switchToWindow(1);
+    // now on edit profile page
+    // const pageHandles =
+    //   await browser.getWindowHandles(); // returns array - 2 windows
+    // // switch page - pass window handle == tabs
+    // await browser.switchWindow(pageHandles[1]);
+    await expect($("input[name='code']")).to
+      .exist; // change this to h1!!!
+    browser.pause(3000);
+  }
+);
 
 
 

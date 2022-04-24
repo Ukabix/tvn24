@@ -9,6 +9,9 @@ class CommonPage {
     // assert the page title as valid
     
   }
+  async changeWindowHelper(url) {
+    await browser.switchWindow(url);
+  }
 }
 
 module.exports = new CommonPage();

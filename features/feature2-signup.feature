@@ -9,7 +9,8 @@ Feature: Site sign up functionality
     # And User navigates to the sign in page
     # And User gives valid credentials
     # Then User should sign in
-    # And User should be able to view secure page and edit his profile
+    Then User should be able to view secure page and edit his profile
+    And User should be able to finish registration
 
   ### validate for wrong username, pass and checkbox in next tcs
   # Scenario: TC-002 Sign in with invalid credentials - username | incognito

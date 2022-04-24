@@ -44,6 +44,7 @@ When(
 );
 
 When(/^User navigates to the sign in page/, async () => {
+  await (await browser.$('.account-standard__toggle-button')).waitForExist();
   await $('.account-standard__toggle-button').moveTo();
   await (await homePage.btnSignIn).waitForExist();
   homePage.navigateToSignIn();
@@ -78,27 +79,4 @@ Then(/^User should sign in/, async () => {
     .exist;
 });
 
-Then(
-  /^User should be able to view secure page and edit his profile/,
-  async () => {
-    await $(
-      '.account-standard__toggle-button'
-    ).waitForExist();
-    await $(
-      '.account-standard__toggle-button'
-    ).moveTo();
-    await browser.pause(3000);
-    homePage.navigateToEditProfile();
-    await browser.pause(10000);
-    // assert new tab has opened for profile edit
-    // helpers.switchToWindow(1);
-    // now on edit profile page
-    // const pageHandles =
-    //   await browser.getWindowHandles(); // returns array - 2 windows
-    // // switch page - pass window handle == tabs
-    // await browser.switchWindow(pageHandles[1]);
-    await expect($("input[name='code']")).to
-      .exist;
-    browser.pause(3000);
-  }
-);
+
