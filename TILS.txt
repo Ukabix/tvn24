@@ -1,0 +1,1 @@
+Czy dodanie POMów od globali w config file to dobra praktyka?
