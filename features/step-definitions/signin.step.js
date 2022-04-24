@@ -29,13 +29,13 @@ When(/^User signs in via email/, async () => {
 When(
   /^User gives valid credentials/,
   async () => {
-    await signInPage.formUsername.waitForExist();
-    await signInPage.formPasword.waitForExist();
+    await signInPage.formInputUsername.waitForExist();
+    await signInPage.formInputPassword.waitForExist();
     // pass credentials
-    await signInPage.formUsername.setValue(
+    await signInPage.formInputUsername.setValue(
       credentials[1].username
     );
-    await signInPage.formPasword.setValue(
+    await signInPage.formInputPassword.setValue(
       credentials[1].password
     );
     // assert elements are loaded
@@ -45,6 +45,7 @@ When(
 
 When(/^User navigates to the sign in page/, async () => {
   await $('.account-standard__toggle-button').moveTo();
+  await (await homePage.btnSignIn).waitForExist();
   homePage.navigateToSignIn();
   // assert sign in page is loaded
   await helpers.assertTitleLiteral("Konto TVN"); // maybe more specific
