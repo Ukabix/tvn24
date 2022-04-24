@@ -141,7 +141,7 @@ exports.config = {
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
     require: [
-      './features/step-definitions/*.step.js',
+      './features/step-definitions/*step.js',
     ],
     // <boolean> show full backtrace for errors
     backtrace: false,
@@ -218,13 +218,8 @@ exports.config = {
    * @param {Object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    require('expect-webdriverio');
-    global.wdioExpect = global.expect;
-    const chai = require('chai');
+    require('chai');
     global.expect = chai.expect;
-    browser.maximizeWindow();
-    const helpers = require('./features/helpers/helpers');
-    global.helpers = helpers;
   },
   /**
    * Runs before a WebdriverIO command gets executed.
