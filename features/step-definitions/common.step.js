@@ -41,10 +41,8 @@ Given(/^User is not recognized with a cookie/, async () => {
   // await browser.pause(3000);
 });
 
-When(/^User navigates to the sign in page/, async () => {
-  await $('.account-standard__toggle-button').moveTo();
-  homePage.navigateToSignIn();
-  // assert sign in page is loaded
-  await helpers.assertTitleLiteral("Konto TVN");
-  // await browser.pause(3000);
-});
+
+
+
+
+

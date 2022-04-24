@@ -43,6 +43,14 @@ When(
   }
 );
 
+When(/^User navigates to the sign in page/, async () => {
+  await $('.account-standard__toggle-button').moveTo();
+  homePage.navigateToSignIn();
+  // assert sign in page is loaded
+  await helpers.assertTitleLiteral("Konto TVN"); // maybe more specific
+  // await browser.pause(3000);
+});
+
 Then(/^User should sign in/, async () => {
   // await signInPage.btnSubmit.waitForExist(); // redundant?
   await $(
