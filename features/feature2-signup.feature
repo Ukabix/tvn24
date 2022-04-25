@@ -6,10 +6,11 @@ Feature: Site sign up functionality
     And User has an email
     When User navigates to the sign up page
     And User registers with his email
-    And User navigates to edit profile page
+    # And User navigates to edit profile page
+    And User should be able to finish registration
     # Then User should sign in
     # Then User should be able to view secure page and edit his profile
-    Then User should be able to finish registration
+    # Then User should be able to finish registration
 
   ### validate for wrong username, pass and checkbox in next tcs
   # Scenario: TC-002 Sign in with invalid credentials - username | incognito
