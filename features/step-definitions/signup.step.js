@@ -1,6 +1,8 @@
 // cucumber imports
 import {
-  Given, When, Then
+  Given,
+  When,
+  Then,
 } from '@wdio/cucumber-framework';
 // helpers
 import helpers from '../helpers/helpers';
@@ -31,14 +33,17 @@ Given(/^User has an email/, async () => {
   console.log('starting User has an email');
   // open email service
   emailServicePage.openEmailServicePage();
+  helpers.waitForPageToLoad();
   console.log('opened service email page');
   // assert elements are loaded
   helpers.assertTitleLiteral('10-minutowy Mail');
-  console.log('asserted visiting service email page');
+  console.log(
+    'asserted visiting service email page'
+  );
   // get generated email adress
   const emailServiceAdress =
     await emailServicePage.getEmailAddress(); // should be string
-    console.log('fetched email address');
+  console.log('fetched email address');
   console.log(emailServiceAdress);
   fs.writeFileSync(
     'features/test-data/account.txt',
@@ -48,7 +53,7 @@ Given(/^User has an email/, async () => {
   // switch back to main tab
   const handles =
     await browser.getWindowHandles();
-    console.log('fetched handles');
+  console.log('fetched handles');
   await browser.switchToWindow(handles[0]);
   console.log('switched to handle[0]');
   console.log('ending User has an email');
@@ -57,7 +62,10 @@ Given(/^User has an email/, async () => {
 When(
   /^User navigates to the sign up page/,
   async () => {
-    console.log('starting User navigates to the sign up page');
+    console.log(
+      'starting User navigates to the sign up page'
+    );
+    helpers.waitForPageToLoad();
     await $(
       '.account-standard__toggle-button'
     ).waitForExist();
@@ -65,12 +73,15 @@ When(
     await $(
       '.account-standard__toggle-button'
     ).moveTo();
-    console.log('moved cursor to profile slider div icon');
+    console.log(
+      'moved cursor to profile slider div icon'
+    );
     await (
       await homePage.btnSignUp
     ).waitForExist();
     console.log('awaited btnSignUp to exist');
     homePage.navigateToSignUp();
+    helpers.waitForPageToLoad();
     console.log('navigated to SignUp ');
     await (
       await browser.$('.step-welcome-main-text')
@@ -79,7 +90,9 @@ When(
     // assert sign in page is loaded
     await helpers.assertTitleLiteral('Konto TVN'); // maybe more specific?
     console.log('asserted title == konto tvn');
-    console.log('ending User navigates to the sign up page');
+    console.log(
+      'ending User navigates to the sign up page'
+    );
     // await browser.pause(3000);
   }
 );
@@ -87,7 +100,10 @@ When(
 When(
   /^User registers with his email/,
   async () => {
-    console.log('starting User registers with his email');
+    console.log(
+      'starting User registers with his email'
+    );
+    helpers.waitForPageToLoad();
     // state 1 - method selection
     await (
       await signUpPage.btnRegisterEmail
@@ -102,11 +118,13 @@ When(
     console.log('waited for signup submit btn');
     const randomTestName =
       helpers.randomTestName2();
-      console.log('created random name');
+    console.log('created random name');
     signUpPage.setFormInputUsername(
       randomTestName
     );
-    console.log('set random name in input for name');
+    console.log(
+      'set random name in input for name'
+    );
     const emailServiceAdress = fs.readFileSync(
       'features/test-data/account.txt',
       'utf8'
@@ -119,7 +137,9 @@ When(
     signUpPage.setFormInputPassword(
       credentials[1].password
     );
-    console.log('passed password from json as password form input');
+    console.log(
+      'passed password from json as password form input'
+    );
     signUpPage.changeFormChboxTos();
     console.log('used tos checkbox');
     // wait for validation to finish
@@ -145,9 +165,11 @@ When(
         interval: 500,
       }
     ); // should I refactor this stream?
-    console.log('waited for form input valiadtions to refresh state');
+    console.log(
+      'waited for form input valiadtions to refresh state'
+    );
     // browser.pause(3000);
-    // await 
+    // await
     signUpPage.submitBtnSubmitSignup(); // executes before validation is complete?
     console.log('clicked signup submit btn');
     // new state loads - state 3 - after signup
@@ -156,32 +178,46 @@ When(
     ).waitForExist();
     console.log('clicked signup submit btn');
     signUpPage.navigateToMainAfterSignup(); //wonky!
+    helpers.waitForPageToLoad();
+    // await browser.closeWindow();
 
     // await browser.pause(3000);
-    console.log('ending User registers with his email');
+    console.log(
+      'ending User registers with his email'
+    );
   }
 );
 
-Then(
+When(
   /^User should be able to finish registration/,
   async () => {
-    console.log('starting User should be able to finish registration');
+    console.log(
+      'starting User should be able to finish registration'
+    );
+    await browser.pause(3000);
     // change page and handle activation email - there are 3!
     const handles =
-    await browser.getWindowHandles();
-    console.log(`fetched page handles: ${handles}`);
-    await browser.switchToWindow(handles[2]);
-    console.log('switched to handles[3]');
+      await browser.getWindowHandles();
+    console.log(handles);
+    console.log(
+      `fetched page handles: ${handles}`
+    );
+    await browser.switchToWindow(handles[1]); // problem with switching?
+    console.log(await browser.getTitle());
+    console.log('switched to 10min mail'); // ok here
     // emailServicePage.changeWindowToEmailServicePage();
-    // click send code
-
+    ////////////////// something wrong below?
+    await browser.pause(3000);
     emailServicePage.useValidationEmail(); // takes loooong
-    console.log('useValidationEmail has executed');
+    console.log(
+      'useValidationEmail has executed'
+    );
 
-
-    await browser.switchToWindow(handles[0]); // or 1?
+    // await browser.switchToWindow(handles[0]); // or 1?
 
     // await browser.pause(3000);
-    console.log('ending User should be able to finish registration');
+    console.log(
+      'ending User should be able to finish registration'
+    );
   }
 );

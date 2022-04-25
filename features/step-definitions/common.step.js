@@ -46,6 +46,7 @@ Given(/^User is on the main page/, async () => {
     'starting User is on the main page'
   );
   commonPage.openHomePage();
+  helpers.waitForPageToLoad();
   console.log('opened home page');
   // assert home page is loaded
   helpers.assertTitleLiteral(
@@ -78,6 +79,7 @@ When(
     console.log(
       'starting User navigates to the sign in page'
     );
+    helpers.waitForPageToLoad();
     await (
       await browser.$(
         '.account-standard__toggle-button'
@@ -114,6 +116,7 @@ When(
     console.log(
       'starting User navigates to edit profile page'
     );
+    
     await (
       await browser.$(
         '.account-standard__toggle-button'
@@ -133,26 +136,28 @@ When(
     ).waitForExist();
     console.log('waited for edit profile btn');
     homePage.navigateToEditProfile();
+    helpers.waitForPageToLoad();
     console.log('navigated to edit profile');
     // new window loads!
-    await browser.waitUntil(
-      async () =>
-        ((await browser.getWindowHandles()).length === 3
-        ),
-      {
-        timeout: 5000,
-        timeoutMsg: 'window not loaded?',
-        interval: 500,
-      }
-    );
-    console.log('waited until handles === 3');
-    const pageHandles =
-      await browser.getWindowHandles(); // returns array - 3 windows
-    console.log(pageHandles);
-    await browser.switchToWindow(pageHandles[2]);
+    // await browser.waitUntil(
+    //   async () =>
+    //     ((await browser.getWindowHandles()).length === 3
+    //     ),
+    //   {
+    //     timeout: 5000,
+    //     timeoutMsg: 'window not loaded?',
+    //     interval: 500,
+    //   }
+    // );
+    // console.log('waited until handles === 3');
+    // const pageHandles =
+    //   await browser.getWindowHandles(); // returns array - 3 windows
+    // console.log(pageHandles);
+    // await browser.switchWindow('Konto');
     // assert sign in page is loaded
-    await helpers.assertTitleLiteral('Konto TVN'); // maybe more specific
-    console.log('asserted title = konto tvn');
+    // await helpers.assertTitleLiteral('Konto TVN'); // maybe more specific
+    await browser.pause(3000);
+    // console.log('asserted title = konto tvn');
     console.log(
       'ending User navigates to edit profile page'
     );
@@ -163,6 +168,7 @@ When(
 Then(
   /^User should be able to view secure page and edit his profile/,
   async () => {
+    helpers.waitForPageToLoad();
     await $(
       '.account-standard__toggle-button'
     ).waitForExist({
@@ -185,7 +191,7 @@ Then(
     // // switch page - pass window handle == tabs
     // await browser.switchWindow(pageHandles[1]);
     await expect($("input[name='code']")).to
-      .exist; // change this to h1!!!
+      .exist; // change this
     browser.pause(3000);
   }
 );

@@ -25,6 +25,18 @@ class Helpers {
     return result;
   }
 
+  async waitForPageToLoad() {
+    await browser.waitUntil(() =>
+      browser.execute(
+        () => document.readyState === 'complete'
+      )
+    ),
+      {
+        timeout: 60 * 1000,
+        timeoutMsg: 'page not ready after 60s',
+      };
+  }
+
   // async switchToWindow(number) {
   //   const pageHandles = await browser.getWindowHandles();
   //   await browser.switchToWindow(pageHandles[number]);

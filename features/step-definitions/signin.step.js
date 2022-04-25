@@ -1,6 +1,8 @@
 // cucumber imports
 import {
-  Given, When, Then
+  Given,
+  When,
+  Then,
 } from '@wdio/cucumber-framework';
 // helpers
 import helpers from '../helpers/helpers';
@@ -21,6 +23,7 @@ let credentials = JSON.parse(
 
 When(/^User signs in via email/, async () => {
   console.log('starting User signs in via email');
+  helpers.waitForPageToLoad();
   await signInPage.btnSigninEmail.waitForExist();
   signInPage.navigateSigninEmail();
   // assert elements are loaded
@@ -31,7 +34,10 @@ When(/^User signs in via email/, async () => {
 When(
   /^User gives valid credentials/,
   async () => {
-    console.log('starting User gives valid credentials');
+    console.log(
+      'starting User gives valid credentials'
+    );
+    helpers.waitForPageToLoad();
     await signInPage.formInputUsername.waitForExist();
     await signInPage.formInputPassword.waitForExist();
     // pass credentials
@@ -43,11 +49,11 @@ When(
     );
     // assert elements are loaded
     // await browser.pause(3000);
-    console.log('ending User gives valid credentials');
+    console.log(
+      'ending User gives valid credentials'
+    );
   }
 );
-
-
 
 Then(/^User should sign in/, async () => {
   console.log('starting User should sign in');
@@ -76,5 +82,3 @@ Then(/^User should sign in/, async () => {
     .exist;
   console.log('ending User should sign in');
 });
-
-
