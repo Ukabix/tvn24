@@ -1,6 +1,8 @@
 // cucumber imports
 import {
-  Given, When, Then
+  Given,
+  When,
+  Then,
 } from '@wdio/cucumber-framework';
 // helpers
 import helpers from '../helpers/helpers';
@@ -10,7 +12,7 @@ import commonPage from '../pageobjects/common.page';
 
 // Given(/^User is on the main page$/, async () => {
 //   commonPage.openHomePage();
-//   // wait for GDPR notice to exist 
+//   // wait for GDPR notice to exist
 //   await (await homePage.btnAcceptGDPR).waitForExist();
 //   // pass GDPR notice
 
@@ -21,21 +23,34 @@ import commonPage from '../pageobjects/common.page';
 //   homePage.navigateToSignIn();
 // });
 
-Given(/^User is not recognized with a cookie/, async () => {
-  console.log('starting User is not recognized with a cookie');
-  await browser.deleteCookies();
-  console.log('cleared cookies');
-  await expect(await browser.getCookies()).to.be.eql([]);
-  console.log('asserted cookies are cleared');
-  console.log('ending User is not recognized with a cookie');
-});
+Given(
+  /^User is not recognized with a cookie/,
+  async () => {
+    console.log(
+      'starting User is not recognized with a cookie'
+    );
+    await browser.deleteCookies();
+    console.log('cleared cookies');
+    await expect(
+      await browser.getCookies()
+    ).to.be.eql([]);
+    console.log('asserted cookies are cleared');
+    console.log(
+      'ending User is not recognized with a cookie'
+    );
+  }
+);
 
 Given(/^User is on the main page/, async () => {
-  console.log('starting User is on the main page');
+  console.log(
+    'starting User is on the main page'
+  );
   commonPage.openHomePage();
   console.log('opened home page');
   // assert home page is loaded
-  helpers.assertTitleLiteral("Wiadomości z kraju i ze świata - najnowsze informacje w TVN24 - TVN24");
+  helpers.assertTitleLiteral(
+    'Wiadomości z kraju i ze świata - najnowsze informacje w TVN24 - TVN24'
+  );
   console.log('asserted title literal');
   /// handle GDPR notice
   await homePage.btnAcceptGDPR.waitForExist();
@@ -57,22 +72,93 @@ Given(/^User is on the main page/, async () => {
   //homePage.navigateToSignIn();
 });
 
-When(/^User navigates to the sign in page/, async () => {
-  console.log('starting User navigates to the sign in page');
-  await (await browser.$('.account-standard__toggle-button')).waitForExist();
-  console.log('waited for account div toggle btn');
-  await $('.account-standard__toggle-button').moveTo();
-  console.log('moved cursor account div toggle btn');
-  await (await homePage.btnSignIn).waitForExist();
-  console.log('waited for sign in btn');
-  homePage.navigateToSignIn();
-  console.log('navigated to sign in');
-  // assert sign in page is loaded
-  await helpers.assertTitleLiteral("Konto TVN"); // maybe more specific
-  console.log('asserted title = konto tvn');
-  console.log('ending User navigates to the sign in page');
-  // await browser.pause(3000);
-});
+When(
+  /^User navigates to the sign in page/,
+  async () => {
+    console.log(
+      'starting User navigates to the sign in page'
+    );
+    await (
+      await browser.$(
+        '.account-standard__toggle-button'
+      )
+    ).waitForExist();
+    console.log(
+      'waited for account div toggle btn'
+    );
+    await $(
+      '.account-standard__toggle-button'
+    ).moveTo();
+    console.log(
+      'moved cursor account div toggle btn'
+    );
+    await (
+      await homePage.btnSignIn
+    ).waitForExist();
+    console.log('waited for sign in btn');
+    homePage.navigateToSignIn();
+    console.log('navigated to sign in');
+    // assert sign in page is loaded
+    await helpers.assertTitleLiteral('Konto TVN'); // maybe more specific
+    console.log('asserted title = konto tvn');
+    console.log(
+      'ending User navigates to the sign in page'
+    );
+    // await browser.pause(3000);
+  }
+);
+
+When(
+  /^User navigates to edit profile page/,
+  async () => {
+    console.log(
+      'starting User navigates to edit profile page'
+    );
+    await (
+      await browser.$(
+        '.account-standard__toggle-button'
+      )
+    ).waitForExist();
+    console.log(
+      'waited for account div toggle btn'
+    );
+    await $(
+      '.account-standard__toggle-button'
+    ).moveTo();
+    console.log(
+      'moved cursor account div toggle btn'
+    );
+    await (
+      await homePage.anchorEditProfile
+    ).waitForExist();
+    console.log('waited for edit profile btn');
+    homePage.navigateToEditProfile();
+    console.log('navigated to edit profile');
+    // new window loads!
+    await browser.waitUntil(
+      async () =>
+        ((await browser.getWindowHandles()).length === 3
+        ),
+      {
+        timeout: 5000,
+        timeoutMsg: 'window not loaded?',
+        interval: 500,
+      }
+    );
+    console.log('waited until handles === 3');
+    const pageHandles =
+      await browser.getWindowHandles(); // returns array - 3 windows
+    console.log(pageHandles);
+    await browser.switchToWindow(pageHandles[2]);
+    // assert sign in page is loaded
+    await helpers.assertTitleLiteral('Konto TVN'); // maybe more specific
+    console.log('asserted title = konto tvn');
+    console.log(
+      'ending User navigates to edit profile page'
+    );
+    // await browser.pause(3000);
+  }
+);
 
 Then(
   /^User should be able to view secure page and edit his profile/,
@@ -103,7 +189,3 @@ Then(
     browser.pause(3000);
   }
 );
-
-
-
-

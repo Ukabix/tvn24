@@ -151,10 +151,11 @@ When(
     signUpPage.submitBtnSubmitSignup(); // executes before validation is complete?
     console.log('clicked signup submit btn');
     // new state loads - state 3 - after signup
-    // await (
-    //   await signUpPage.btnAfterSignup
-    // ).waitForExist();
-    // signUpPage.navigateToMainAfterSignup(); wonky!
+    await (
+      await signUpPage.btnAfterSignup
+    ).waitForExist();
+    console.log('clicked signup submit btn');
+    signUpPage.navigateToMainAfterSignup(); //wonky!
 
     // await browser.pause(3000);
     console.log('ending User registers with his email');
@@ -165,34 +166,22 @@ Then(
   /^User should be able to finish registration/,
   async () => {
     console.log('starting User should be able to finish registration');
-    // change page and handle activation email
+    // change page and handle activation email - there are 3!
     const handles =
     await browser.getWindowHandles();
-    await browser.switchToWindow(handles[1]);
+    console.log(`fetched page handles: ${handles}`);
+    await browser.switchToWindow(handles[2]);
+    console.log('switched to handles[3]');
     // emailServicePage.changeWindowToEmailServicePage();
     // click send code
 
     emailServicePage.useValidationEmail(); // takes loooong
+    console.log('useValidationEmail has executed');
 
 
     await browser.switchToWindow(handles[0]); // or 1?
-    // await browser.closeWindow(handles[1]);
-    // navigate back to main page
-    // const handles =
-    //   await browser.getWindowHandles();
 
     // await browser.pause(3000);
     console.log('ending User should be able to finish registration');
   }
 );
-
-// Scenario: TC-001 Sign in with valid credentials | incogito
-// Given User has an email
-// And User is not recognized with a cookie
-// And User is on the main page
-// When User navigates to the sign up page
-// And User registers with his email
-// And User navigates to the sign in page
-// And User gives valid credentials
-// Then User should sign in
-// And User should be able to view secure page and edit his profile
