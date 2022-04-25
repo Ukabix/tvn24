@@ -1,3 +1,4 @@
+
 class EmailServicePage {
   get formEmailAdress() {
     return $('#fe_text');
@@ -12,6 +13,12 @@ class EmailServicePage {
   }
   get anchorSumbitSignup() {
     return $('=Przejdź do konta');
+  }
+  get mailboxElement() {
+    return $('#mailbox');
+  }
+  get tableRowsElements() {
+    return $$('tr');
   }
   async openEmailServicePage() {
     await browser.newWindow(
@@ -30,17 +37,19 @@ class EmailServicePage {
     ); // causing problems?
   }
   async useValidationEmail() {
-    console.log('executing useValidationEmail');
-
+    // console.log('executing useValidationEmail');
+    // await ((await this.anchorSender).isExisting() ? (await this.anchorSender).click() : (await this.anchorRefresh).click());
 
     // assert 10 min email page is open
 
-    await $('#mailbox').scrollIntoView();
-    console.log('scrolled to mailbox');
-    console.log((await $$('tr').length));
+    //// below is not executing - why???
+
+    // await (await this.mailboxElement).scrollIntoView(); 
+    // console.log('scrolled to mailbox');
+    // console.log((await this.tableRowsElements).length); // why is ths not executing?
     await browser.waitUntil(
       async () => {
-        ((await $$('tr').length) > 2); 
+        (((await this.tableRowsElements).length) === 3);
       },
       {
         timeout: 1200000,
@@ -49,27 +58,22 @@ class EmailServicePage {
         interval: 10000,
       }
     );
-    console.log('waited for registration email and it arrived');
+    // console.log('waited for registration email and it arrived');
     ////////////////// something wrong below
 
     await (await this.anchorSender).waitForExist();
-    console.log('waited for anchor sender');
-    await browser.pause(3000);
+    // console.log('waited for anchor sender');
+    // await browser.pause(3000);
 
     await (await this.anchorSender).click();
-    console.log('clicked anchorSender = tvn');
-    await browser.pause(3000);
+    // console.log('clicked anchorSender = tvn');
+    // await browser.pause(3000);
     // await ((await this.anchorSender).isExisting() ? (await this.anchorSender).click() : (await this.anchorRefresh).click()); // BAD!
-    await this.anchorSumbitSignup.waitForExist(); // causing errors?
-    console.log('waited for submit btn in email');
-    await this.anchorSumbitSignup.click();
-    console.log('clicked submit btn in email');
-    await browser.pause(3000);
-  }
-}
-
-export default new EmailServicePage();
-
+    await (await this.anchorSumbitSignup).waitForExist(); // causing errors?
+    // console.log('waited for submit btn in email');
+    await (await this.anchorSumbitSignup).click();
+    // console.log('clicked submit btn in email');
+    // await browser.pause(3000);
     //   const div = await browser.waitUntil(async () => {
     //     const elems = await $$('div')
     //     if (elems.length !== 2) {
@@ -96,3 +100,10 @@ export default new EmailServicePage();
     //     interval: 10000,
     //   }
     // );
+
+  }
+}
+
+export default new EmailServicePage();
+
+
