@@ -13,6 +13,9 @@ Scripting languages used:
 Javascript ES6
 Gherkin
 
+In order to use allure you also need:
+Java 8 or higher
+
 For more information about modules and dependencies, please check package.json.
 
 In order to run this suite, please follow the instructions below:
@@ -22,13 +25,16 @@ In order to run this suite, please follow the instructions below:
 4) To run the whole suite use ``npx wdio run wdio.conf.js``. In order to use different wdio config, please find the attached wdio.conf.js files and run ``npx wdio run yourConfig.conf.js``
 
 Testing scope:
-1) Feature 1 - Site sign in functionality
+1) Feature 1 - Site sign in functionality (using testdata json)
+2) Feature 2 - Site sign up functionality (using external email service provider, using fs to store temporary data and testdata json)
+3) Feature 3 -
 ...
 
+
+Project structure:
 All features are placed in ``./features/`` directory and are given a set of test scenarios following BDD rules of Given, When, Then approach.
-
 Step definitions are placed in the ``./features/step-definitions/`` directory.
-
 Page Object Models are placed in the ``./features/pageobjects/`` directory.
+Custom helper functions are placed in the ``./features/helpers/`` directory. 
 
 More info to come, WIP.

@@ -1,49 +1,62 @@
 // cucumber imports
-const {
+import {
   Given,
   When,
   Then,
-} = require('@wdio/cucumber-framework');
-const helpers = require('../helpers/helpers');
+} from '@wdio/cucumber-framework';
+// helpers
+import helpers from '../helpers/helpers';
+// POM imports
+import commonPage from '../pageobjects/common.page';
+import homePage from '../pageobjects/home.page';
+import signInPage from '../pageobjects/signin.page';
+import signUpPage from '../pageobjects/signup.page';
+
 // test data import
-const fs = require('fs');
+import fs from 'fs';
 // parse string
 let credentials = JSON.parse(
   fs.readFileSync(
     'features/test-data/signin.step.json'
   )
 );
-// POM imports
-// const commonPage = require('../pageobjects/common.page');
-// const homePage = require('../pageobjects/home.page');
-const signInPage = require('../pageobjects/signin.page');
-const homePage = require('../pageobjects/home.page');
 
 When(/^User signs in via email/, async () => {
+  console.log('starting User signs in via email');
+  helpers.waitForPageToLoad();
   await signInPage.btnSigninEmail.waitForExist();
   signInPage.navigateSigninEmail();
   // assert elements are loaded
   // await browser.pause(3000);
+  console.log('ending User signs in via email');
 });
 
 When(
   /^User gives valid credentials/,
   async () => {
-    await signInPage.formUsername.waitForExist();
-    await signInPage.formPasword.waitForExist();
+    console.log(
+      'starting User gives valid credentials'
+    );
+    helpers.waitForPageToLoad();
+    await signInPage.formInputUsername.waitForExist();
+    await signInPage.formInputPassword.waitForExist();
     // pass credentials
-    await signInPage.formUsername.setValue(
+    await signInPage.formInputUsername.setValue(
       credentials[1].username
     );
-    await signInPage.formPasword.setValue(
+    await signInPage.formInputPassword.setValue(
       credentials[1].password
     );
     // assert elements are loaded
     // await browser.pause(3000);
+    console.log(
+      'ending User gives valid credentials'
+    );
   }
 );
 
 Then(/^User should sign in/, async () => {
+  console.log('starting User should sign in');
   // await signInPage.btnSubmit.waitForExist(); // redundant?
   await $(
     '.MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-indeterminate'
@@ -67,29 +80,5 @@ Then(/^User should sign in/, async () => {
   ).moveTo();
   await expect(homePage.anchorEditProfile).to
     .exist;
+  console.log('ending User should sign in');
 });
-
-Then(
-  /^User should be able to view secure page and edit his profile/,
-  async () => {
-    await $(
-      '.account-standard__toggle-button'
-    ).waitForExist();
-    await $(
-      '.account-standard__toggle-button'
-    ).moveTo();
-    await browser.pause(3000);
-    homePage.navigateToEditProfile();
-    await browser.pause(10000);
-    // assert new tab has opened for profile edit
-    // helpers.switchToWindow(1);
-    // now on edit profile page
-    // const pageHandles =
-    //   await browser.getWindowHandles(); // returns array - 2 windows
-    // // switch page - pass window handle == tabs
-    // await browser.switchWindow(pageHandles[1]);
-    await expect($("input[name='code']")).to
-      .exist;
-    browser.pause(3000);
-  }
-);

@@ -1,1 +1,19 @@
 feature1 - clean up browser.pause,implement more cases
+feature2 - goes pretty well, email verifcation, implement more cases, link with feature1 to validate account creation // SOME PROBLEMS - seems like useValidationEmail and changeWindowToEmailServicePage are causing them
+
+
+milestones:
+get all features to at least workable state
+add Allure reports
+refactor!
+add mobile handling (chrome capabilities)
+add more assertions when tcs are workable
+use testing techniques to at least cover most test cases
+add screenshots on failed tests
+add selenium-standalone and multi-browser support? if time permits
+use more helpers? if time permits
+change commonJS into ES6... - DONE, what about requires in wdio.conf.js? // it's okay
+Fixed invalid session id error => caused by incognito mode + cleaning cookies
+
+
+Oh God, so much to do...

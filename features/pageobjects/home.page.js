@@ -36,33 +36,33 @@ class HomePage {
   }
   // methods
   async acceptGDPR() {
-    await this.btnAcceptGDPR.click();
+    await (await this.btnAcceptGDPR).click();
   }
   async navigateToSignIn() {
-    await this.btnSignIn.click();
+    await (await this.btnSignIn).click();
   }
   async navigateToSignUp() {
-    await this.btnSignUp.click();
+    await (await this.btnSignUp).click();
   }
   async navigateToHome() {
-    await this.anchorHome.click();
+    await (await this.anchorHome).click();
   }
   async navigateToTwitter() {
-    await this.btnTwitter.click();
+    await (await this.btnTwitter).click();
   }
   async navigateToFacebook() {
-    await this.btnFacebook.click();
+    await (await this.btnFacebook).click();
   }
   async closeFrameNotifications() {
-    await browser.switchToFrame(
+    browser.switchToFrame(
       await this.frameNotifications
     );
-    await $('.no-box').click();
-    await browser.switchToFrame(null);
+    $('.no-box').click();
+    browser.switchToFrame(null);
   }
   async navigateToEditProfile() {
-    await this.anchorEditProfile.click();
+    await (await this.anchorEditProfile).click();
   }
 }
 
-module.exports = new HomePage();
+export default new HomePage();

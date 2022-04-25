@@ -5,5 +5,12 @@
           "webdriverio/async",
           "@wdio/cucumber-framework"
       ]
-  }
+  },
+  "include": [
+    "feature/*.feature",
+    "feature/**/*.js",
+    "**/*.json",
+    "node_modules/@wdio/async",
+    "node_modules/@cucumber"
+  ]
 }
