@@ -20,15 +20,18 @@ let credentials = JSON.parse(
 );
 
 When(/^User signs in via email/, async () => {
+  console.log('starting User signs in via email');
   await signInPage.btnSigninEmail.waitForExist();
   signInPage.navigateSigninEmail();
   // assert elements are loaded
   // await browser.pause(3000);
+  console.log('ending User signs in via email');
 });
 
 When(
   /^User gives valid credentials/,
   async () => {
+    console.log('starting User gives valid credentials');
     await signInPage.formInputUsername.waitForExist();
     await signInPage.formInputPassword.waitForExist();
     // pass credentials
@@ -40,20 +43,14 @@ When(
     );
     // assert elements are loaded
     // await browser.pause(3000);
+    console.log('ending User gives valid credentials');
   }
 );
 
-When(/^User navigates to the sign in page/, async () => {
-  await (await browser.$('.account-standard__toggle-button')).waitForExist();
-  await $('.account-standard__toggle-button').moveTo();
-  await (await homePage.btnSignIn).waitForExist();
-  homePage.navigateToSignIn();
-  // assert sign in page is loaded
-  await helpers.assertTitleLiteral("Konto TVN"); // maybe more specific
-  // await browser.pause(3000);
-});
+
 
 Then(/^User should sign in/, async () => {
+  console.log('starting User should sign in');
   // await signInPage.btnSubmit.waitForExist(); // redundant?
   await $(
     '.MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-indeterminate'
@@ -77,6 +74,7 @@ Then(/^User should sign in/, async () => {
   ).moveTo();
   await expect(homePage.anchorEditProfile).to
     .exist;
+  console.log('ending User should sign in');
 });
 
 

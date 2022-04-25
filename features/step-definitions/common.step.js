@@ -22,10 +22,16 @@ import commonPage from '../pageobjects/common.page';
 // });
 
 Given(/^User is not recognized with a cookie/, async () => {
+  console.log('starting User is not recognized with a cookie');
   await browser.deleteCookies();
+  console.log('cleared cookies');
+  await expect(await browser.getCookies()).to.be.eql([]);
+  console.log('asserted cookies are cleared');
+  console.log('ending User is not recognized with a cookie');
 });
 
 Given(/^User is on the main page/, async () => {
+  console.log('starting User is on the main page');
   commonPage.openHomePage();
   console.log('opened home page');
   // assert home page is loaded
@@ -46,8 +52,26 @@ Given(/^User is on the main page/, async () => {
   console.log('asserted btn sign in exists');
   await expect(homePage.btnSignUp).to.exist;
   console.log('asserted btn sign up exists');
+  console.log('ending User is on the main page');
   // await browser.pause(3000);
   //homePage.navigateToSignIn();
+});
+
+When(/^User navigates to the sign in page/, async () => {
+  console.log('starting User navigates to the sign in page');
+  await (await browser.$('.account-standard__toggle-button')).waitForExist();
+  console.log('waited for account div toggle btn');
+  await $('.account-standard__toggle-button').moveTo();
+  console.log('moved cursor account div toggle btn');
+  await (await homePage.btnSignIn).waitForExist();
+  console.log('waited for sign in btn');
+  homePage.navigateToSignIn();
+  console.log('navigated to sign in');
+  // assert sign in page is loaded
+  await helpers.assertTitleLiteral("Konto TVN"); // maybe more specific
+  console.log('asserted title = konto tvn');
+  console.log('ending User navigates to the sign in page');
+  // await browser.pause(3000);
 });
 
 Then(

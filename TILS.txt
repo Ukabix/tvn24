@@ -1,2 +1,3 @@
 Czy dodanie POMów od globali w config file to dobra praktyka?
 DO NOT USE INCOG MODE WITH browser.deleteCookies() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Rebooting router + new IP got rid of invalid session id?
