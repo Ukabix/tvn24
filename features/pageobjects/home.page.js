@@ -1,3 +1,5 @@
+import $ from "webdriverio/build/commands/browser/$";
+
 class HomePage {
   // locators
   get btnSignIn() {
@@ -29,6 +31,9 @@ class HomePage {
   }
   get anchorEditProfile() {
     return $('a[href="https://panel.account.tvn.pl"]');
+  }
+  get anchorTopStory() {
+    return $('.top-story__media').parentElement();
   }
   // frames
   get frameNotifications() {
@@ -62,6 +67,9 @@ class HomePage {
   }
   async navigateToEditProfile() {
     await (await this.anchorEditProfile).click();
+  }
+  async navigateToTopStory () {
+    await (await this.anchorTopStory).click();
   }
 }
 
